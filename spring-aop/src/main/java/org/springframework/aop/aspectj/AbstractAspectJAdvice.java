@@ -78,6 +78,8 @@ public abstract class AbstractAspectJAdvice implements Advice, AspectJPrecedence
 	 */
 	public static JoinPoint currentJoinPoint() {
 		MethodInvocation mi = ExposeInvocationInterceptor.currentInvocation();
+
+		//如果不是spring 代理，无法取得joinPoint对象
 		if (!(mi instanceof ProxyMethodInvocation)) {
 			throw new IllegalStateException("MethodInvocation is not a Spring ProxyMethodInvocation: " + mi);
 		}
@@ -705,6 +707,9 @@ public abstract class AbstractAspectJAdvice implements Advice, AspectJPrecedence
 	/**
 	 * MethodMatcher that excludes the specified advice method.
 	 * @see AbstractAspectJAdvice#buildSafePointcut()
+	 *
+	 *
+	 * 方法判断,传入方法，不能equals此方法
 	 */
 	private static class AdviceExcludingMethodMatcher extends StaticMethodMatcher {
 

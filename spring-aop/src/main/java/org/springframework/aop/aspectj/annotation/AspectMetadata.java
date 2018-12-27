@@ -77,14 +77,26 @@ public class AspectMetadata implements Serializable {
 	 * Create a new AspectMetadata instance for the given aspect class.
 	 * @param aspectClass the aspect class
 	 * @param aspectName the name of the aspect
+	 *
+	 *  创建AspectMetadata对象
+	 *
 	 */
 	public AspectMetadata(Class<?> aspectClass, String aspectName) {
 		this.aspectName = aspectName;
 
 		Class<?> currClass = aspectClass;
 		AjType<?> ajType = null;
+
+
+		/**
+		 * 获取AjType对象
+		 */
 		while (currClass != Object.class) {
 			AjType<?> ajTypeToCheck = AjTypeSystem.getAjType(currClass);
+
+			/**
+			 * 判断类有么有AspectJ注解
+			 */
 			if (ajTypeToCheck.isAspect()) {
 				ajType = ajTypeToCheck;
 				break;
@@ -100,14 +112,19 @@ public class AspectMetadata implements Serializable {
 		this.aspectClass = ajType.getJavaClass();
 		this.ajType = ajType;
 
+
+		//@AspectJ中的值判断
 		switch (this.ajType.getPerClause().getKind()) {
 			case SINGLETON:
+
+				//如果没有值 TruePointcut
 				this.perClausePointcut = Pointcut.TRUE;
 				return;
 			case PERTARGET:
 			case PERTHIS:
 				AspectJExpressionPointcut ajexp = new AspectJExpressionPointcut();
 				ajexp.setLocation(aspectClass.getName());
+				//AspectJ中的表达式
 				ajexp.setExpression(findPerClause(aspectClass));
 				ajexp.setPointcutDeclarationScope(aspectClass);
 				this.perClausePointcut = ajexp;

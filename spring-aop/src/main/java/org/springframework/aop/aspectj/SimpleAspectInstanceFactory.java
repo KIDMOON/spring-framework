@@ -28,6 +28,9 @@ import org.springframework.util.ReflectionUtils;
  * Implementation of {@link AspectInstanceFactory} that creates a new instance
  * of the specified aspect class for every {@link #getAspectInstance()} call.
  *
+ *
+ *  为某个类创建实例
+ *
  * @author Juergen Hoeller
  * @since 2.0.4
  */

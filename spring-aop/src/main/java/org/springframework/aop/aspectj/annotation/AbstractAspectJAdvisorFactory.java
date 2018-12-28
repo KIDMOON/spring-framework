@@ -77,16 +77,20 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 	 */
 	@Override
 	public boolean isAspect(Class<?> clazz) {
+		//是否能被Aspect
 		return (hasAspectAnnotation(clazz) && !compiledByAjc(clazz));
 	}
 
 	private boolean hasAspectAnnotation(Class<?> clazz) {
+		//是否有aspect
 		return (AnnotationUtils.findAnnotation(clazz, Aspect.class) != null);
 	}
 
 	/**
 	 * We need to detect this as "code-style" AspectJ aspects should not be
 	 * interpreted by Spring AOP.
+	 *
+	 * 字段是否有ajc$
 	 */
 	private boolean compiledByAjc(Class<?> clazz) {
 		// The AJTypeSystem goes to great lengths to provide a uniform appearance between code-style and
@@ -100,6 +104,11 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 		return false;
 	}
 
+	/**
+	 * 验证方法
+	 * @param aspectClass the supposed AspectJ annotation-style class to validate
+	 * @throws AopConfigException
+	 */
 	@Override
 	public void validate(Class<?> aspectClass) throws AopConfigException {
 		// If the parent has the annotation and isn't abstract it's an error
@@ -190,10 +199,14 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 		private final String argumentNames;
 
 		public AspectJAnnotation(A annotation) {
+			// aspectJ注解
 			this.annotation = annotation;
+			//判断注解是什么 （Pointcut，before,after....）
 			this.annotationType = determineAnnotationType(annotation);
 			try {
+				//注解的表达式 （"pointcut", "value"）的值,
 				this.pointcutExpression = resolveExpression(annotation);
+				//参数名
 				Object argNames = AnnotationUtils.getValue(annotation, "argNames");
 				this.argumentNames = (argNames instanceof String ? (String) argNames : "");
 			}
@@ -203,6 +216,7 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 		}
 
 		private AspectJAnnotationType determineAnnotationType(A annotation) {
+			//确定注解的类型
 			AspectJAnnotationType type = annotationTypeMap.get(annotation.annotationType());
 			if (type != null) {
 				return type;
@@ -211,6 +225,7 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 		}
 
 		private String resolveExpression(A annotation) {
+			//获取注解中的"pointcut", "value" 属性,先取pointcut
 			for (String attributeName : EXPRESSION_ATTRIBUTES) {
 				Object val = AnnotationUtils.getValue(annotation, attributeName);
 				if (val instanceof String) {

@@ -52,6 +52,7 @@ public class InstanceComparator<T> implements Comparator<T> {
 	}
 
 
+	//按照传入的class的顺序比较
 	@Override
 	public int compare(T o1, T o2) {
 		int i1 = getOrder(o1);

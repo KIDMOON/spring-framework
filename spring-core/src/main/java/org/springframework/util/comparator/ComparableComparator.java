@@ -16,6 +16,7 @@
 
 package org.springframework.util.comparator;
 
+
 import java.util.Comparator;
 
 /**
@@ -27,6 +28,8 @@ import java.util.Comparator;
  * @since 1.2.2
  * @param <T> the type of comparable objects that may be compared by this comparator
  * @see Comparable
+ *
+ * 比较器
  */
 public class ComparableComparator<T extends Comparable<T>> implements Comparator<T> {
 
@@ -42,5 +45,8 @@ public class ComparableComparator<T extends Comparable<T>> implements Comparator
 	public int compare(T o1, T o2) {
 		return o1.compareTo(o2);
 	}
+
+
+
 
 }

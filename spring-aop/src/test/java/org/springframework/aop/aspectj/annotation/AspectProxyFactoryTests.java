@@ -16,19 +16,19 @@
 
 package org.springframework.aop.aspectj.annotation;
 
-import java.io.Serializable;
-import java.util.Arrays;
-
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.junit.Test;
+import org.springframework.util.SerializationTestUtils;
 import test.aop.PerThisAspect;
 
-import org.springframework.util.SerializationTestUtils;
+import java.io.Serializable;
+import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Rob Harrop
@@ -37,7 +37,7 @@ import static org.junit.Assert.*;
  */
 public class AspectProxyFactoryTests {
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testWithNonAspect() {
 		AspectJProxyFactory proxyFactory = new AspectJProxyFactory(new TestBean());
 		proxyFactory.addAspect(TestBean.class);
@@ -50,6 +50,7 @@ public class AspectProxyFactoryTests {
 		AspectJProxyFactory proxyFactory = new AspectJProxyFactory(bean);
 		proxyFactory.addAspect(MultiplyReturnValue.class);
 		ITestBean proxy = proxyFactory.getProxy();
+		proxy.getAge();
 		assertEquals("Multiplication did not occur", bean.getAge() * 2, proxy.getAge());
 	}
 

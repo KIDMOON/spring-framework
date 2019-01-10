@@ -16,16 +16,16 @@
 
 package org.springframework.aop.support;
 
-import java.lang.reflect.Method;
-
 import org.junit.Test;
-
 import org.springframework.aop.ClassFilter;
 import org.springframework.aop.Pointcut;
 import org.springframework.lang.Nullable;
 import org.springframework.tests.sample.beans.TestBean;
 
-import static org.junit.Assert.*;
+import java.lang.reflect.Method;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Rod Johnson
@@ -56,12 +56,7 @@ public class PointcutsTests {
 	public static Pointcut allTestBeanMethodsPointcut = new StaticMethodMatcherPointcut() {
 		@Override
 		public ClassFilter getClassFilter() {
-			return new ClassFilter() {
-				@Override
-				public boolean matches(Class<?> clazz) {
-					return clazz.equals(TestBean.class);
-				}
-			};
+			return clazz -> clazz.equals(TestBean.class);
 		}
 
 		@Override

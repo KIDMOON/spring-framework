@@ -26,6 +26,9 @@ package org.springframework.aop;
  * @author Rod Johnson
  * @see Pointcut
  * @see MethodMatcher
+ *
+ * class filete
+ *
  */
 @FunctionalInterface
 public interface ClassFilter {

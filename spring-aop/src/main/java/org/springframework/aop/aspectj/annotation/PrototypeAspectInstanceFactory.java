@@ -16,9 +16,9 @@
 
 package org.springframework.aop.aspectj.annotation;
 
-import java.io.Serializable;
-
 import org.springframework.beans.factory.BeanFactory;
+
+import java.io.Serializable;
 
 /**
  * {@link org.springframework.aop.aspectj.AspectInstanceFactory} backed by a
@@ -46,6 +46,8 @@ public class PrototypeAspectInstanceFactory extends BeanFactoryAspectInstanceFac
 	 */
 	public PrototypeAspectInstanceFactory(BeanFactory beanFactory, String name) {
 		super(beanFactory, name);
+
+		//如果不是原型，抛出异常 （isPrototype 的意思为 是否是单例） ）
 		if (!beanFactory.isPrototype(name)) {
 			throw new IllegalArgumentException(
 					"Cannot use PrototypeAspectInstanceFactory with bean named '" + name + "': not a prototype");

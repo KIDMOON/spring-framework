@@ -27,6 +27,11 @@ import org.springframework.core.annotation.OrderUtils;
  *
  * @author Juergen Hoeller
  * @since 2.0.4
+ *
+ * 继承 MetadataAwareAspectInstanceFactory,可以获取 AspectMetadata属性
+ *
+ * （与{@link SingletonMetadataAwareAspectInstanceFactory} 基本相似，唯一区别就是
+ *  一个是每次实例，一个是单例模式 getAspectInstance ）
  */
 public class SimpleMetadataAwareAspectInstanceFactory extends SimpleAspectInstanceFactory
 		implements MetadataAwareAspectInstanceFactory {

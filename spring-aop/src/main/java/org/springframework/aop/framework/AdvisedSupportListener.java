@@ -23,6 +23,9 @@ package org.springframework.aop.framework;
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see ProxyCreatorSupport#addListener
+ *
+ * 通知状态的改变的回调，暂无实现
+ *
  */
 public interface AdvisedSupportListener {
 

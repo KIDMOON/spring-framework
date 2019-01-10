@@ -29,6 +29,8 @@ import org.springframework.lang.Nullable;
  * @author Adrian Colyer
  * @author Juergen Hoeller
  * @since 2.0
+ *
+ * 工具类 是否是后置通知等。。。。
  */
 public abstract class AspectJAopUtils {
 
@@ -58,6 +60,7 @@ public abstract class AspectJAopUtils {
 	 * Return the AspectJPrecedenceInformation provided by this advisor or its advice.
 	 * If neither the advisor nor the advice have precedence information, this method
 	 * will return {@code null}.
+	 * 获取 AspectJPrecedenceInformation对象
 	 */
 	@Nullable
 	public static AspectJPrecedenceInformation getAspectJPrecedenceInformationFor(Advisor anAdvisor) {

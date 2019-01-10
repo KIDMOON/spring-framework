@@ -16,11 +16,11 @@
 
 package org.springframework.aop.target;
 
-import java.io.Serializable;
-
 import org.springframework.aop.TargetSource;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
+
+import java.io.Serializable;
 
 /**
  * Canonical {@code TargetSource} when there is no target
@@ -29,6 +29,11 @@ import org.springframework.util.ObjectUtils;
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
+ *
+ *没有目标的时候，EmptyTargetSource
+ *
+ * isStatic 为true
+ * targetclass为null;
  */
 public final class EmptyTargetSource implements TargetSource, Serializable {
 
@@ -42,6 +47,7 @@ public final class EmptyTargetSource implements TargetSource, Serializable {
 
 	/**
 	 * The canonical (Singleton) instance of this {@link EmptyTargetSource}.
+	 * 单例模式（空的TargetSource）
 	 */
 	public static final EmptyTargetSource INSTANCE = new EmptyTargetSource(null, true);
 
@@ -107,6 +113,7 @@ public final class EmptyTargetSource implements TargetSource, Serializable {
 
 	/**
 	 * Always returns {@code null}.
+	 *
 	 */
 	@Override
 	@Nullable

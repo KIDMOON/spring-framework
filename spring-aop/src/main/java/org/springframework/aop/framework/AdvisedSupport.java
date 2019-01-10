@@ -16,23 +16,8 @@
 
 package org.springframework.aop.framework;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.aopalliance.aop.Advice;
-
-import org.springframework.aop.Advisor;
-import org.springframework.aop.DynamicIntroductionAdvice;
-import org.springframework.aop.IntroductionAdvisor;
-import org.springframework.aop.IntroductionInfo;
-import org.springframework.aop.TargetSource;
+import org.springframework.aop.*;
 import org.springframework.aop.support.DefaultIntroductionAdvisor;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.target.EmptyTargetSource;
@@ -41,6 +26,12 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.lang.reflect.Method;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Base class for AOP proxy configuration managers.
@@ -57,6 +48,12 @@ import org.springframework.util.CollectionUtils;
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see org.springframework.aop.framework.AopProxy
+ *
+ *
+ * AdvisedSupport 支持
+ * aop 代码的传入参数，很重要。
+ *
+ *
  */
 public class AdvisedSupport extends ProxyConfig implements Advised {
 
@@ -71,6 +68,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	public static final TargetSource EMPTY_TARGET_SOURCE = EmptyTargetSource.INSTANCE;
 
 
+	//空targetsource
 	/** Package-protected to allow direct access for efficiency. */
 	TargetSource targetSource = EMPTY_TARGET_SOURCE;
 
@@ -81,6 +79,9 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	AdvisorChainFactory advisorChainFactory = new DefaultAdvisorChainFactory();
 
 	/** Cache with Method as key and advisor chain List as value. */
+	/**
+	 *	缓存 advisor
+	 */
 	private transient Map<MethodCacheKey, List<Object>> methodCache;
 
 	/**
@@ -167,6 +168,10 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 		this.preFiltered = preFiltered;
 	}
 
+	/**
+	 * 过滤判断
+	 * @return
+	 */
 	@Override
 	public boolean isPreFiltered() {
 		return this.preFiltered;
@@ -206,9 +211,11 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	 */
 	public void addInterface(Class<?> intf) {
 		Assert.notNull(intf, "Interface must not be null");
+		//如果不是接口，抛异常
 		if (!intf.isInterface()) {
 			throw new IllegalArgumentException("[" + intf.getName() + "] is not an interface");
 		}
+		//如果不包含 intf，加入interfaces,adviceChang处理
 		if (!this.interfaces.contains(intf)) {
 			this.interfaces.add(intf);
 			adviceChanged();
@@ -284,6 +291,9 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 		}
 
 		Advisor advisor = this.advisors.get(index);
+
+
+		//如果属于IntroductionAdvisor，interface也相应移除，新增时也增加了interface
 		if (advisor instanceof IntroductionAdvisor) {
 			IntroductionAdvisor ia = (IntroductionAdvisor) advisor;
 			// We need to remove introduction interfaces.

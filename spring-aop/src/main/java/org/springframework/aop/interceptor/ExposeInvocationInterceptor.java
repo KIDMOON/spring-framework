@@ -16,15 +16,14 @@
 
 package org.springframework.aop.interceptor;
 
-import java.io.Serializable;
-
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-
 import org.springframework.aop.Advisor;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.core.PriorityOrdered;
+
+import java.io.Serializable;
 
 /**
  * Interceptor that exposes the current {@link org.aopalliance.intercept.MethodInvocation}
@@ -36,7 +35,7 @@ import org.springframework.core.PriorityOrdered;
  * Target objects should be plain POJOs as far as possible.
  *
  * <p>If used, this interceptor will normally be the first in the interceptor chain.
- *
+ * 如果使用，一般就是第一个拦截链
  * @author Rod Johnson
  * @author Juergen Hoeller
  */

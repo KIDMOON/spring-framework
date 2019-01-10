@@ -30,12 +30,14 @@ public interface PoolingConfig {
 	int getMaxSize();
 
 	/**
+	 * 活跃数
 	 * Return the number of active objects in the pool.
 	 * @throws UnsupportedOperationException if not supported by the pool
 	 */
 	int getActiveCount() throws UnsupportedOperationException;
 
 	/**
+	 * 空闲数
 	 * Return the number of idle objects in the pool.
 	 * @throws UnsupportedOperationException if not supported by the pool
 	 */

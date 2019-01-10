@@ -22,6 +22,9 @@ import java.io.Serializable;
  * Canonical ClassFilter instance that matches all classes.
  *
  * @author Rod Johnson
+ *
+ * true 过滤
+ * 一直为true
  */
 @SuppressWarnings("serial")
 final class TrueClassFilter implements ClassFilter, Serializable {

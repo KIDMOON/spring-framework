@@ -30,6 +30,8 @@ import org.springframework.util.StringUtils;
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 2.0
+ *
+ *  类过滤 顾虑但是又内部的TypePatternMatcher的match方法实现
  */
 public class TypePatternClassFilter implements ClassFilter {
 

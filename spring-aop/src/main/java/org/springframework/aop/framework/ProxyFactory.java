@@ -31,6 +31,9 @@ import org.springframework.util.ClassUtils;
  * @author Juergen Hoeller
  * @author Rob Harrop
  * @since 14.03.2003
+ *
+ * 快速代理工厂类
+ *
  */
 @SuppressWarnings("serial")
 public class ProxyFactory extends ProxyCreatorSupport {
@@ -45,6 +48,9 @@ public class ProxyFactory extends ProxyCreatorSupport {
 	 * Create a new ProxyFactory.
 	 * <p>Will proxy all interfaces that the given target implements.
 	 * @param target the target object to be proxied
+	 * 设置代理target
+	 * interfaces加入接口
+	 *
 	 */
 	public ProxyFactory(Object target) {
 		setTarget(target);

@@ -25,6 +25,9 @@ import org.springframework.aop.framework.AopConfigException;
  *
  * @author Rod Johnson
  * @since 2.0
+ *
+ *
+ * 异常类 (is not an AspectJ aspect)
  */
 @SuppressWarnings("serial")
 public class NotAnAtAspectException extends AopConfigException {

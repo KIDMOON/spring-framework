@@ -16,11 +16,11 @@
 
 package org.springframework.aop.aspectj.annotation;
 
-import java.io.Serializable;
-
 import org.springframework.aop.aspectj.SingletonAspectInstanceFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.OrderUtils;
+
+import java.io.Serializable;
 
 /**
  * Implementation of {@link MetadataAwareAspectInstanceFactory} that is backed
@@ -31,6 +31,8 @@ import org.springframework.core.annotation.OrderUtils;
  * @author Juergen Hoeller
  * @since 2.0
  * @see SimpleMetadataAwareAspectInstanceFactory
+ *
+ * 与{@link SimpleMetadataAwareAspectInstanceFactory} 基本相似 getAspectInstance单例
  */
 @SuppressWarnings("serial")
 public class SingletonMetadataAwareAspectInstanceFactory extends SingletonAspectInstanceFactory

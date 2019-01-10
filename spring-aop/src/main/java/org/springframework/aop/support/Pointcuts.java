@@ -16,12 +16,12 @@
 
 package org.springframework.aop.support;
 
-import java.io.Serializable;
-import java.lang.reflect.Method;
-
 import org.springframework.aop.MethodMatcher;
 import org.springframework.aop.Pointcut;
 import org.springframework.util.Assert;
+
+import java.io.Serializable;
+import java.lang.reflect.Method;
 
 /**
  * Pointcut constants for matching getters and setters,
@@ -31,6 +31,8 @@ import org.springframework.util.Assert;
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
+ *
+ * 工具类
  */
 public abstract class Pointcuts {
 

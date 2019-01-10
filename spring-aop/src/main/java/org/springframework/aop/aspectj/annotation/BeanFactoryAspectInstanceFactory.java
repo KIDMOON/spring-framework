@@ -16,8 +16,6 @@
 
 package org.springframework.aop.aspectj.annotation;
 
-import java.io.Serializable;
-
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.core.Ordered;
@@ -25,6 +23,8 @@ import org.springframework.core.annotation.OrderUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
+
+import java.io.Serializable;
 
 /**
  * {@link org.springframework.aop.aspectj.AspectInstanceFactory} implementation
@@ -40,6 +40,9 @@ import org.springframework.util.ClassUtils;
  * @since 2.0
  * @see org.springframework.beans.factory.BeanFactory
  * @see LazySingletonAspectInstanceFactoryDecorator
+ *
+ *
+ * beanfactory aspect inastance
  */
 @SuppressWarnings("serial")
 public class BeanFactoryAspectInstanceFactory implements MetadataAwareAspectInstanceFactory, Serializable {
@@ -85,6 +88,10 @@ public class BeanFactoryAspectInstanceFactory implements MetadataAwareAspectInst
 	}
 
 
+	/**
+	 * beanFactory获取对象
+	 * @return
+	 */
 	@Override
 	public Object getAspectInstance() {
 		return this.beanFactory.getBean(this.name);

@@ -16,20 +16,10 @@
 
 package org.springframework.aop.framework;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.Interceptor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.aop.Advisor;
 import org.springframework.aop.TargetSource;
 import org.springframework.aop.framework.adapter.AdvisorAdapterRegistry;
@@ -37,18 +27,17 @@ import org.springframework.aop.framework.adapter.GlobalAdvisorAdapterRegistry;
 import org.springframework.aop.framework.adapter.UnknownAdviceTypeException;
 import org.springframework.aop.target.SingletonTargetSource;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanClassLoaderAware;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.beans.factory.BeanFactoryUtils;
-import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.FactoryBeanNotInitializedException;
-import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.beans.factory.*;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * {@link org.springframework.beans.factory.FactoryBean} implementation that builds an
@@ -250,6 +239,7 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	@Nullable
 	public Object getObject() throws BeansException {
 		initializeAdvisorChain();
+
 		if (isSingleton()) {
 			return getSingletonInstance();
 		}
@@ -320,13 +310,16 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 			if (this.autodetectInterfaces && getProxiedInterfaces().length == 0 && !isProxyTargetClass()) {
 				// Rely on AOP infrastructure to tell us what interfaces to proxy.
 				Class<?> targetClass = getTargetClass();
+				//不能确认代理类，找不到
 				if (targetClass == null) {
 					throw new FactoryBeanNotInitializedException("Cannot determine target class for proxy");
 				}
+				//设置接口
 				setInterfaces(ClassUtils.getAllInterfacesForClass(targetClass, this.proxyClassLoader));
 			}
 			// Initialize the shared singleton instance.
 			super.setFrozen(this.freezeProxy);
+			//设置代理对象
 			this.singletonInstance = getProxy(createAopProxy());
 		}
 		return this.singletonInstance;
@@ -569,6 +562,8 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	 * specified at the end of the interceptorNames list, the TargetSource will be
 	 * this class's TargetSource member. Otherwise, we get the target bean and wrap
 	 * it in a TargetSource if necessary.
+	 *
+	 * 刷新targetsource
 	 */
 	private TargetSource freshTargetSource() {
 		if (this.targetName == null) {

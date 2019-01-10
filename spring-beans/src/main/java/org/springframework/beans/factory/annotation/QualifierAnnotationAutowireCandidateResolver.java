@@ -16,13 +16,6 @@
 
 package org.springframework.beans.factory.annotation;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Method;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.springframework.beans.SimpleTypeConverter;
 import org.springframework.beans.TypeConverter;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -42,6 +35,13 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * {@link AutowireCandidateResolver} implementation that matches bean definition qualifiers
  * against {@link Qualifier qualifier annotations} on the field or parameter to be autowired.
@@ -56,6 +56,9 @@ import org.springframework.util.StringUtils;
  * @see AutowireCandidateQualifier
  * @see Qualifier
  * @see Value
+ *
+ * Qualifier
+ *
  */
 public class QualifierAnnotationAutowireCandidateResolver extends GenericTypeAwareAutowireCandidateResolver {
 
@@ -68,11 +71,14 @@ public class QualifierAnnotationAutowireCandidateResolver extends GenericTypeAwa
 	 * Create a new QualifierAnnotationAutowireCandidateResolver
 	 * for Spring's standard {@link Qualifier} annotation.
 	 * <p>Also supports JSR-330's {@link javax.inject.Qualifier} annotation, if available.
+	 * 添加注解
+	 *
 	 */
 	@SuppressWarnings("unchecked")
 	public QualifierAnnotationAutowireCandidateResolver() {
 		this.qualifierTypes.add(Qualifier.class);
 		try {
+			//方便个人实现
 			this.qualifierTypes.add((Class<? extends Annotation>) ClassUtils.forName("javax.inject.Qualifier",
 							QualifierAnnotationAutowireCandidateResolver.class.getClassLoader()));
 		}
@@ -204,6 +210,9 @@ public class QualifierAnnotationAutowireCandidateResolver extends GenericTypeAwa
 
 	/**
 	 * Checks whether the given annotation type is a recognized qualifier type.
+	 * //是否是。。。注解
+	 *
+	 *
 	 */
 	protected boolean isQualifier(Class<? extends Annotation> annotationType) {
 		for (Class<? extends Annotation> qualifierType : this.qualifierTypes) {

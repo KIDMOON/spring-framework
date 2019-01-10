@@ -16,11 +16,11 @@
 
 package org.springframework.aop.support;
 
-import java.io.Serializable;
-
 import org.springframework.aop.ClassFilter;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
+
+import java.io.Serializable;
 
 /**
  * Static utility methods for composing {@link ClassFilter ClassFilters}.
@@ -31,6 +31,9 @@ import org.springframework.util.ObjectUtils;
  * @since 11.11.2003
  * @see MethodMatchers
  * @see Pointcuts
+ *
+ * 抽象工具类 ClassFilter
+ *
  */
 public abstract class ClassFilters {
 
@@ -85,6 +88,9 @@ public abstract class ClassFilters {
 
 	/**
 	 * ClassFilter implementation for a union of the given ClassFilters.
+	 * nionClassFilter
+	 *  "或 || "过滤
+	 *
 	 */
 	@SuppressWarnings("serial")
 	private static class UnionClassFilter implements ClassFilter, Serializable {
@@ -120,6 +126,7 @@ public abstract class ClassFilters {
 
 	/**
 	 * ClassFilter implementation for an intersection of the given ClassFilters.
+	 * (有一样不匹配就是false )（并 && ）
 	 */
 	@SuppressWarnings("serial")
 	private static class IntersectionClassFilter implements ClassFilter, Serializable {

@@ -16,10 +16,10 @@
 
 package org.springframework.aop.framework;
 
+import org.springframework.util.Assert;
+
 import java.util.LinkedList;
 import java.util.List;
-
-import org.springframework.util.Assert;
 
 /**
  * Base class for proxy factories.
@@ -28,10 +28,17 @@ import org.springframework.util.Assert;
  * @author Juergen Hoeller
  * @since 2.0.3
  * @see #createAopProxy()
+ *
+ * 代理创建者支持
+ *
+ * 是AdvisedSupport的唯一直接继承者，默认创建创建aop代码工厂（主要功能就是设置了aopProxyFactory ）
+ *
  */
 @SuppressWarnings("serial")
 public class ProxyCreatorSupport extends AdvisedSupport {
 
+
+	//代理工厂类
 	private AopProxyFactory aopProxyFactory;
 
 	private final List<AdvisedSupportListener> listeners = new LinkedList<>();
@@ -111,6 +118,7 @@ public class ProxyCreatorSupport extends AdvisedSupport {
 	 */
 	private void activate() {
 		this.active = true;
+		//通知AdvisedSupportListener者
 		for (AdvisedSupportListener listener : this.listeners) {
 			listener.activated(this);
 		}
@@ -124,6 +132,7 @@ public class ProxyCreatorSupport extends AdvisedSupport {
 	protected void adviceChanged() {
 		super.adviceChanged();
 		synchronized (this) {
+			//状态改变 ，如果active为null,通知AdvisedSupportListeners
 			if (this.active) {
 				for (AdvisedSupportListener listener : this.listeners) {
 					listener.adviceChanged(this);

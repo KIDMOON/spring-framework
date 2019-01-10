@@ -16,23 +16,18 @@
 
 package org.springframework.aop.framework;
 
+import org.aopalliance.intercept.Interceptor;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.springframework.aop.*;
+import org.springframework.aop.framework.adapter.AdvisorAdapterRegistry;
+import org.springframework.aop.framework.adapter.GlobalAdvisorAdapterRegistry;
+import org.springframework.lang.Nullable;
+
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.aopalliance.intercept.Interceptor;
-import org.aopalliance.intercept.MethodInterceptor;
-
-import org.springframework.aop.Advisor;
-import org.springframework.aop.IntroductionAdvisor;
-import org.springframework.aop.IntroductionAwareMethodMatcher;
-import org.springframework.aop.MethodMatcher;
-import org.springframework.aop.PointcutAdvisor;
-import org.springframework.aop.framework.adapter.AdvisorAdapterRegistry;
-import org.springframework.aop.framework.adapter.GlobalAdvisorAdapterRegistry;
-import org.springframework.lang.Nullable;
 
 /**
  * A simple but definitive way of working out an advice chain for a Method,
@@ -43,6 +38,9 @@ import org.springframework.lang.Nullable;
  * @author Rod Johnson
  * @author Adrian Colyer
  * @since 2.0.3
+ *
+ * 默认的Advisor链工厂
+ *
  */
 @SuppressWarnings("serial")
 public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializable {
@@ -53,6 +51,8 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 
 		// This is somewhat tricky... We have to process introductions first,
 		// but we need to preserve order in the ultimate list.
+
+		//advisor适配器 ，将advisor装成methodInterceptor,默认注册了三种通知
 		AdvisorAdapterRegistry registry = GlobalAdvisorAdapterRegistry.getInstance();
 		Advisor[] advisors = config.getAdvisors();
 		List<Object> interceptorList = new ArrayList<>(advisors.length);
@@ -110,6 +110,7 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 	 * Determine whether the Advisors contain matching introductions.
 	 */
 	private static boolean hasMatchingIntroductions(Advisor[] advisors, Class<?> actualClass) {
+		//判断 advisors, IntroductionAdvisor中的类过滤判断
 		for (Advisor advisor : advisors) {
 			if (advisor instanceof IntroductionAdvisor) {
 				IntroductionAdvisor ia = (IntroductionAdvisor) advisor;

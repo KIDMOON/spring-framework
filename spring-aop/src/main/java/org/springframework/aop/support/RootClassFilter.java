@@ -16,14 +16,16 @@
 
 package org.springframework.aop.support;
 
-import java.io.Serializable;
-
 import org.springframework.aop.ClassFilter;
+
+import java.io.Serializable;
 
 /**
  * Simple ClassFilter implementation that passes classes (and optionally subclasses).
  *
  * @author Rod Johnson
+ * 是否是父子类关系
+ *
  */
 @SuppressWarnings("serial")
 public class RootClassFilter implements ClassFilter, Serializable {

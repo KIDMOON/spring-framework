@@ -42,7 +42,7 @@ import org.springframework.util.Assert;
  * @author Mark Fisher
  * @author Juergen Hoeller
  */
-@Service @Lazy @DependsOn("myNamedComponent")
+@Service
 public abstract class FooServiceImpl implements FooService {
 
 	// Just to test ASM5's bytecode parsing of INVOKESPECIAL/STATIC on interfaces

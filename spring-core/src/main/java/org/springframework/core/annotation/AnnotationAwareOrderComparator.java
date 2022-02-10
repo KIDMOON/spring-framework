@@ -57,11 +57,14 @@ public class AnnotationAwareOrderComparator extends OrderComparator {
 	 * {@link javax.annotation.Priority @Priority} on various kinds of
 	 * elements, in addition to the {@link org.springframework.core.Ordered}
 	 * check in the superclass.
+	 *
+	 * 得到排序
 	 */
 	@Override
 	@Nullable
 	protected Integer findOrder(Object obj) {
 		// Check for regular Ordered interface
+		//检查Order接口
 		Integer order = super.findOrder(obj);
 		if (order != null) {
 			return order;

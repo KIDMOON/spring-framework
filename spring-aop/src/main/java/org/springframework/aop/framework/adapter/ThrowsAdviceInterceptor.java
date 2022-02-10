@@ -16,19 +16,18 @@
 
 package org.springframework.aop.framework.adapter;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.aop.AfterAdvice;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Interceptor to wrap an after-throwing advice.
@@ -53,6 +52,10 @@ import org.springframework.util.Assert;
  * @author Juergen Hoeller
  * @see MethodBeforeAdviceInterceptor
  * @see AfterReturningAdviceInterceptor
+ */
+
+/**
+ * 异常通知 ，
  */
 public class ThrowsAdviceInterceptor implements MethodInterceptor, AfterAdvice {
 
@@ -110,8 +113,7 @@ public class ThrowsAdviceInterceptor implements MethodInterceptor, AfterAdvice {
 	public Object invoke(MethodInvocation mi) throws Throwable {
 		try {
 			return mi.proceed();
-		}
-		catch (Throwable ex) {
+		} catch (Throwable ex) {
 			Method handlerMethod = getExceptionHandler(ex);
 			if (handlerMethod != null) {
 				invokeHandlerMethod(mi, ex, handlerMethod);
@@ -146,14 +148,12 @@ public class ThrowsAdviceInterceptor implements MethodInterceptor, AfterAdvice {
 		Object[] handlerArgs;
 		if (method.getParameterCount() == 1) {
 			handlerArgs = new Object[] {ex};
-		}
-		else {
+		} else {
 			handlerArgs = new Object[] {mi.getMethod(), mi.getArguments(), mi.getThis(), ex};
 		}
 		try {
 			method.invoke(this.throwsAdvice, handlerArgs);
-		}
-		catch (InvocationTargetException targetEx) {
+		} catch (InvocationTargetException targetEx) {
 			throw targetEx.getTargetException();
 		}
 	}

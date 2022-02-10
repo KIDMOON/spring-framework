@@ -164,8 +164,11 @@ public class HandlerMethod {
 		this.responseStatusReason = handlerMethod.responseStatusReason;
 		this.resolvedFromHandlerMethod = handlerMethod;
 	}
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
 	private MethodParameter[] initMethodParameters() {
 		int count = this.bridgedMethod.getParameterCount();
 		MethodParameter[] result = new MethodParameter[count];

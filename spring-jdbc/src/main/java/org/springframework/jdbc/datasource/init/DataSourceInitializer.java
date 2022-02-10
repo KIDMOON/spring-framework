@@ -20,6 +20,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.cglib.beans.BeanMap;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 

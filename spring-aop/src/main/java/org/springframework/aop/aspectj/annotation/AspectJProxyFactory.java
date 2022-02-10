@@ -45,6 +45,9 @@ import org.springframework.util.ClassUtils;
  * @see #getProxy()
  * @see #getProxy(ClassLoader)
  * @see org.springframework.aop.framework.ProxyFactory
+ *
+ * 代理工厂类
+ *
  */
 @SuppressWarnings("serial")
 public class AspectJProxyFactory extends ProxyCreatorSupport {
@@ -166,6 +169,8 @@ public class AspectJProxyFactory extends ProxyCreatorSupport {
 	private Object getSingletonAspectInstance(Class<?> aspectClass) {
 		// Quick check without a lock...
 		Object instance = aspectCache.get(aspectClass);
+
+		//TODO 记录
 		if (instance == null) {
 			synchronized (aspectCache) {
 				// To be safe, check within full lock now...

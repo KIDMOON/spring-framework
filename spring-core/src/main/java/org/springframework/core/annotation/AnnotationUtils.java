@@ -1146,6 +1146,8 @@ public abstract class AnnotationUtils {
 			try {
 				Object attributeValue = method.invoke(annotation);
 				Object defaultValue = method.getDefaultValue();
+
+				//如果默认值不等于null,并且 nullsafeEquals相同
 				if (defaultValue != null && ObjectUtils.nullSafeEquals(attributeValue, defaultValue)) {
 					attributeValue = new DefaultValueHolder(defaultValue);
 				}
@@ -1370,7 +1372,12 @@ public abstract class AnnotationUtils {
 			if (valuesAlreadyReplaced.contains(attributeName)) {
 				continue;
 			}
+<<<<<<< Updated upstream
 			Object value = attributes.get(attributeName);
+=======
+			//得到属性
+			Object value = attributeEntry.getValue();
+>>>>>>> Stashed changes
 			if (value instanceof DefaultValueHolder) {
 				value = ((DefaultValueHolder) value).defaultValue;
 				attributes.put(attributeName,

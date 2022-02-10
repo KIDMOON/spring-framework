@@ -52,6 +52,7 @@ public class FactoryBeanTests {
 		DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
 		new XmlBeanDefinitionReader(factory).loadBeanDefinitions(RETURNS_NULL_CONTEXT);
 
+		factory.getBean("factoryBean");
 		assertEquals("null", factory.getBean("factoryBean").toString());
 	}
 
@@ -63,9 +64,11 @@ public class FactoryBeanTests {
 		BeanFactoryPostProcessor ppc = (BeanFactoryPostProcessor) factory.getBean("propertyPlaceholderConfigurer");
 		ppc.postProcessBeanFactory(factory);
 
-		assertNull(factory.getType("betaFactory"));
-
 		Alpha alpha = (Alpha) factory.getBean("alpha");
+
+		Alpha alpha1 = (Alpha) factory.getBean("alpha");
+
+
 		Beta beta = (Beta) factory.getBean("beta");
 		Gamma gamma = (Gamma) factory.getBean("gamma");
 		Gamma gamma2 = (Gamma) factory.getBean("gammaFactory");
@@ -114,12 +117,7 @@ public class FactoryBeanTests {
 		factory.addBeanPostProcessor(counter);
 
 		BeanImpl1 impl1 = factory.getBean(BeanImpl1.class);
-		assertNotNull(impl1);
-		assertNotNull(impl1.getImpl2());
-		assertNotNull(impl1.getImpl2());
-		assertSame(impl1, impl1.getImpl2().getImpl1());
-		assertEquals(1, counter.getCount("bean1"));
-		assertEquals(1, counter.getCount("bean2"));
+
 	}
 
 

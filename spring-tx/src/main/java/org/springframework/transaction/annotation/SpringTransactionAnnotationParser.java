@@ -35,6 +35,9 @@ import org.springframework.transaction.interceptor.TransactionAttribute;
  *
  * @author Juergen Hoeller
  * @since 2.5
+ *
+ *
+ *注解分析器
  */
 @SuppressWarnings("serial")
 public class SpringTransactionAnnotationParser implements TransactionAnnotationParser, Serializable {
@@ -42,9 +45,12 @@ public class SpringTransactionAnnotationParser implements TransactionAnnotationP
 	@Override
 	@Nullable
 	public TransactionAttribute parseTransactionAnnotation(AnnotatedElement element) {
+
+		//查找是否带有 Transactional注解
 		AnnotationAttributes attributes = AnnotatedElementUtils.findMergedAnnotationAttributes(
 				element, Transactional.class, false, false);
 		if (attributes != null) {
+			//转换成特定的事务注解属性
 			return parseTransactionAnnotation(attributes);
 		}
 		else {

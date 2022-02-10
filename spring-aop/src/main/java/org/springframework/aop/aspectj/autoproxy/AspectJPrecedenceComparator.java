@@ -45,13 +45,20 @@ import org.springframework.util.Assert;
  * @author Adrian Colyer
  * @author Juergen Hoeller
  * @since 2.0
+ *
+ * 排序类
+ *
  */
 class AspectJPrecedenceComparator implements Comparator<Advisor> {
 
+
+	//高
 	private static final int HIGHER_PRECEDENCE = -1;
 
+	//相同
 	private static final int SAME_PRECEDENCE = 0;
 
+	//低
 	private static final int LOWER_PRECEDENCE = 1;
 
 

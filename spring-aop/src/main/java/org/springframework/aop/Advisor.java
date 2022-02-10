@@ -32,6 +32,9 @@ import org.aopalliance.aop.Advice;
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
+ *
+ *
+ * Aop的基本接口
  */
 public interface Advisor {
 

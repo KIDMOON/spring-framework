@@ -33,6 +33,9 @@ import org.springframework.aop.Advisor;
  * do so only if you need to introduce more Advisor or Advice types to Spring.
  *
  * @author Rod Johnson
+ * 适配器
+ *
+ *
  */
 public interface AdvisorAdapter {
 
@@ -44,6 +47,8 @@ public interface AdvisorAdapter {
 	 * @return whether this adapter understands the given advice object
 	 * @see #getInterceptor(org.springframework.aop.Advisor)
 	 * @see org.springframework.aop.BeforeAdvice
+	 *
+	 * 是否支持
 	 */
 	boolean supportsAdvice(Advice advice);
 
@@ -57,6 +62,9 @@ public interface AdvisorAdapter {
 	 * @return an AOP Alliance interceptor for this Advisor. There's
 	 * no need to cache instances for efficiency, as the AOP framework
 	 * caches advice chains.
+	 *
+	 *
+	 *
 	 */
 	MethodInterceptor getInterceptor(Advisor advisor);
 

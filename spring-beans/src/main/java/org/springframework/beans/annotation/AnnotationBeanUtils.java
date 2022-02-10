@@ -63,6 +63,7 @@ public abstract class AnnotationBeanUtils {
 			String... excludedProperties) {
 
 		Set<String> excluded = new HashSet<>(Arrays.asList(excludedProperties));
+
 		Method[] annotationProperties = ann.annotationType().getDeclaredMethods();
 		BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(bean);
 		for (Method annotationProperty : annotationProperties) {

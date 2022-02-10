@@ -37,6 +37,8 @@ import org.springframework.lang.Nullable;
  * Internal implementation of AspectJPointcutAdvisor.
  * Note that there will be one instance of this advisor for each target method.
  *
+ * AspectJPointcutAdvisor的内部实现
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 2.0
@@ -210,10 +212,15 @@ class InstantiationModelAwarePointcutAdvisorImpl
 	/**
 	 * Duplicates some logic from getAdvice, but importantly does not force
 	 * creation of the advice.
+	 *
+	 * 确定advice类型
+	 *
 	 */
 	private void determineAdviceType() {
 		AspectJAnnotation<?> aspectJAnnotation =
 				AbstractAspectJAdvisorFactory.findAspectJAnnotationOnMethod(this.aspectJAdviceMethod);
+
+		//判断
 		if (aspectJAnnotation == null) {
 			this.isBeforeAdvice = false;
 			this.isAfterAdvice = false;
@@ -262,6 +269,8 @@ class InstantiationModelAwarePointcutAdvisorImpl
 	 * Pointcut implementation that changes its behaviour when the advice is instantiated.
 	 * Note that this is a <i>dynamic</i> pointcut; otherwise it might be optimized out
 	 * if it does not at first match statically.
+	 *
+	 * Pointcut的实现 懒加载判断，实例化之后declaredPointcut的matches
 	 */
 	private class PerTargetInstantiationModelPointcut extends DynamicMethodMatcherPointcut {
 
@@ -277,6 +286,8 @@ class InstantiationModelAwarePointcutAdvisorImpl
 
 			this.declaredPointcut = declaredPointcut;
 			this.preInstantiationPointcut = preInstantiationPointcut;
+
+			//如果aspectInstanceFactory属于懒单例方面实例工厂装饰类
 			if (aspectInstanceFactory instanceof LazySingletonAspectInstanceFactoryDecorator) {
 				this.aspectInstanceFactory = (LazySingletonAspectInstanceFactoryDecorator) aspectInstanceFactory;
 			}
@@ -296,6 +307,7 @@ class InstantiationModelAwarePointcutAdvisorImpl
 			return (isAspectMaterialized() && this.declaredPointcut.matches(method, targetClass));
 		}
 
+		//是否实例化
 		private boolean isAspectMaterialized() {
 			return (this.aspectInstanceFactory == null || this.aspectInstanceFactory.isMaterialized());
 		}

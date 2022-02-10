@@ -29,24 +29,33 @@ package org.springframework.aop;
  * @see org.springframework.aop.support.Pointcuts
  * @see org.springframework.aop.support.ClassFilters
  * @see org.springframework.aop.support.MethodMatchers
+ *
+ *  切入点接口
+ *
  */
 public interface Pointcut {
 
 	/**
 	 * Return the ClassFilter for this pointcut.
 	 * @return the ClassFilter (never {@code null})
+	 * classFilter 过滤
+	 *
 	 */
 	ClassFilter getClassFilter();
 
 	/**
 	 * Return the MethodMatcher for this pointcut.
 	 * @return the MethodMatcher (never {@code null})
+	 *
+	 * 方法匹配
 	 */
 	MethodMatcher getMethodMatcher();
 
 
 	/**
 	 * Canonical Pointcut instance that always matches.
+	 * ture 切入点，切入一切
+	 *
 	 */
 	Pointcut TRUE = TruePointcut.INSTANCE;
 

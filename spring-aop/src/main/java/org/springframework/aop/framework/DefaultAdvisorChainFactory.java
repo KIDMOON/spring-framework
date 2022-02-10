@@ -47,13 +47,23 @@ import org.springframework.lang.Nullable;
 @SuppressWarnings("serial")
 public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializable {
 
+
+	//获取Interceptor
 	@Override
 	public List<Object> getInterceptorsAndDynamicInterceptionAdvice(
 			Advised config, Method method, @Nullable Class<?> targetClass) {
 
 		// This is somewhat tricky... We have to process introductions first,
 		// but we need to preserve order in the ultimate list.
+<<<<<<< Updated upstream
 		List<Object> interceptorList = new ArrayList<Object>(config.getAdvisors().length);
+=======
+
+		//advisor适配器 ，将advisor装成methodInterceptor,默认注册了三种通知 注册默认适配器 （方法前置，返回值后，异常后）
+		AdvisorAdapterRegistry registry = GlobalAdvisorAdapterRegistry.getInstance();
+		Advisor[] advisors = config.getAdvisors();
+		List<Object> interceptorList = new ArrayList<>(advisors.length);
+>>>>>>> Stashed changes
 		Class<?> actualClass = (targetClass != null ? targetClass : method.getDeclaringClass());
 		boolean hasIntroductions = hasMatchingIntroductions(config, actualClass);
 		AdvisorAdapterRegistry registry = GlobalAdvisorAdapterRegistry.getInstance();

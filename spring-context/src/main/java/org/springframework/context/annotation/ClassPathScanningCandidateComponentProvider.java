@@ -422,6 +422,9 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 			boolean traceEnabled = logger.isTraceEnabled();
 			boolean debugEnabled = logger.isDebugEnabled();
 			for (Resource resource : resources) {
+
+
+				resource.getFilename();
 				if (traceEnabled) {
 					logger.trace("Scanning " + resource);
 				}

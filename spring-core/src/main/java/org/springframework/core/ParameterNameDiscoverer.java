@@ -32,6 +32,9 @@ import org.springframework.lang.Nullable;
  * @author Rod Johnson
  * @author Adrian Colyer
  * @since 2.0
+ *
+ * 参数名字实现
+ *
  */
 public interface ParameterNameDiscoverer {
 
@@ -43,6 +46,9 @@ public interface ParameterNameDiscoverer {
 	 * @param method the method to find parameter names for
 	 * @return an array of parameter names if the names can be resolved,
 	 * or {@code null} if they cannot
+	 *
+	 * 方法的参数
+	 *
 	 */
 	@Nullable
 	String[] getParameterNames(Method method);
@@ -55,6 +61,8 @@ public interface ParameterNameDiscoverer {
 	 * @param ctor the constructor to find parameter names for
 	 * @return an array of parameter names if the names can be resolved,
 	 * or {@code null} if they cannot
+	 *
+	 * 构造函数的参数
 	 */
 	@Nullable
 	String[] getParameterNames(Constructor<?> ctor);

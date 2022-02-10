@@ -210,6 +210,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	 * Determine the raw name, resolving aliases to canonical names.
 	 * @param name the user-specified name
 	 * @return the transformed name
+	 *  得到原始名称
 	 */
 	public String canonicalName(String name) {
 		String canonicalName = name;

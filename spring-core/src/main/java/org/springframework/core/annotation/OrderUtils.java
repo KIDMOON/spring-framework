@@ -99,18 +99,26 @@ public abstract class OrderUtils {
 	 */
 	@Nullable
 	public static Integer getOrder(Class<?> type) {
+		//从缓存中获取
 		Object cached = orderCache.get(type);
 		if (cached != null) {
+			// 如果是Integer，直接返回
 			return (cached instanceof Integer ? (Integer) cached : null);
 		}
+
+		//获取Type类中Order注解
 		Order order = AnnotationUtils.findAnnotation(type, Order.class);
 		Integer result;
+
+		//如果存在注解，直接返回value属性
 		if (order != null) {
 			result = order.value();
 		}
 		else {
 			result = getPriority(type);
 		}
+
+		//放入orderCache缓存中
 		orderCache.put(type, (result != null ? result : NOT_ANNOTATED));
 		return result;
 	}
@@ -123,18 +131,26 @@ public abstract class OrderUtils {
 	 */
 	@Nullable
 	public static Integer getPriority(Class<?> type) {
+
+		//如果avax.annotation.Priority在项目中存在
 		if (priorityAnnotationType == null) {
 			return null;
 		}
+		//从优先级缓存中读取
 		Object cached = priorityCache.get(type);
 		if (cached != null) {
 			return (cached instanceof Integer ? (Integer) cached : null);
 		}
+
+		//查找javax.annotation.Priority注解，如果存在
 		Annotation priority = AnnotationUtils.findAnnotation(type, priorityAnnotationType);
 		Integer result = null;
 		if (priority != null) {
+			//获取Priority中的value  字段
 			result = (Integer) AnnotationUtils.getValue(priority);
 		}
+
+		//放入缓存
 		priorityCache.put(type, (result != null ? result : NOT_ANNOTATED));
 		return result;
 	}

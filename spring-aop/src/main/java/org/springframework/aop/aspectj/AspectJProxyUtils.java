@@ -28,6 +28,8 @@ import org.springframework.aop.interceptor.ExposeInvocationInterceptor;
  * @author Rod Johnson
  * @author Ramnivas Laddad
  * @since 2.0
+ *
+ * util类
  */
 public abstract class AspectJProxyUtils {
 
@@ -61,6 +63,9 @@ public abstract class AspectJProxyUtils {
 	/**
 	 * Determine whether the given Advisor contains an AspectJ advice.
 	 * @param advisor the Advisor to check
+	 *
+	 * 判断是否是aspectJ advice
+	 * (属于InstantiationModelAwarePointcutAdvisor)
 	 */
 	private static boolean isAspectJAdvice(Advisor advisor) {
 		return (advisor instanceof InstantiationModelAwarePointcutAdvisor ||

@@ -1927,7 +1927,7 @@ public class AnnotationUtilsTests {
 	@Component("webController")
 	static class WebController {
 
-		@WebMapping(value = "/test", name = "foo")
+		@WebMapping(value = "", name = "foo")
 		public void handleMappedWithValueAttribute() {
 		}
 

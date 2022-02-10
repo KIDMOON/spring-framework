@@ -26,9 +26,16 @@ import org.springframework.lang.Nullable;
  * which do care about arguments at runtime.
  *
  * @author Rod Johnson
+ *
+ * 动态方法匹配
+ *
  */
 public abstract class DynamicMethodMatcher implements MethodMatcher {
 
+	/**
+	 * 默认ture
+	 * @return
+	 */
 	@Override
 	public final boolean isRuntime() {
 		return true;
@@ -37,6 +44,8 @@ public abstract class DynamicMethodMatcher implements MethodMatcher {
 	/**
 	 * Can override to add preconditions for dynamic matching. This implementation
 	 * always returns true.
+	 *
+	 * 默认true
 	 */
 	@Override
 	public boolean matches(Method method, @Nullable Class<?> targetClass) {

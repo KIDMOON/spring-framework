@@ -44,6 +44,8 @@ import org.springframework.util.ObjectUtils;
  * @see org.springframework.core.annotation.AnnotationAwareOrderComparator
  * @see java.util.List#sort(java.util.Comparator)
  * @see java.util.Arrays#sort(Object[], java.util.Comparator)
+ *
+ * 排序comparator
  */
 public class OrderComparator implements Comparator<Object> {
 
@@ -71,9 +73,13 @@ public class OrderComparator implements Comparator<Object> {
 	private int doCompare(@Nullable Object o1, @Nullable Object o2, @Nullable OrderSourceProvider sourceProvider) {
 		boolean p1 = (o1 instanceof PriorityOrdered);
 		boolean p2 = (o2 instanceof PriorityOrdered);
+
+
+		//如果p1属于PriorityOrdered ，p2不属于PriorityOrdered
 		if (p1 && !p2) {
 			return -1;
 		}
+		//如果p2属于PriorityOrdered ，p1不属于PriorityOrdered
 		else if (p2 && !p1) {
 			return 1;
 		}
@@ -92,11 +98,15 @@ public class OrderComparator implements Comparator<Object> {
 	 */
 	private int getOrder(@Nullable Object obj, @Nullable OrderSourceProvider sourceProvider) {
 		Integer order = null;
+		//如果都不为null
 		if (obj != null && sourceProvider != null) {
+			//得到排序来在次排序
 			Object orderSource = sourceProvider.getOrderSource(obj);
 			if (orderSource != null) {
+				//如果是数组
 				if (orderSource.getClass().isArray()) {
 					Object[] sources = ObjectUtils.toObjectArray(orderSource);
+					//遍历
 					for (Object source : sources) {
 						order = findOrder(source);
 						if (order != null) {
@@ -109,6 +119,8 @@ public class OrderComparator implements Comparator<Object> {
 				}
 			}
 		}
+
+		//order有值就返回，查找obj的order
 		return (order != null ? order : getOrder(obj));
 	}
 
@@ -118,6 +130,8 @@ public class OrderComparator implements Comparator<Object> {
 	 * through delegating to {@link #findOrder}. Can be overridden in subclasses.
 	 * @param obj the object to check
 	 * @return the order value, or {@code Ordered.LOWEST_PRECEDENCE} as fallback
+	 *
+	 * 查找对象排序，是否实现order接口，如果没有，则为最大值
 	 */
 	protected int getOrder(@Nullable Object obj) {
 		if (obj != null) {
@@ -135,6 +149,7 @@ public class OrderComparator implements Comparator<Object> {
 	 * Can be overridden in subclasses.
 	 * @param obj the object to check
 	 * @return the order value, or {@code null} if none found
+	 * 如果属于order,返回getOrder
 	 */
 	@Nullable
 	protected Integer findOrder(Object obj) {

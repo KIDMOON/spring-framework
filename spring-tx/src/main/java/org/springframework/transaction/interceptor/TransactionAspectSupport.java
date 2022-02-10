@@ -279,7 +279,10 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 			final InvocationCallback invocation) throws Throwable {
 
 		// If the transaction attribute is null, the method is non-transactional.
+
 		TransactionAttributeSource tas = getTransactionAttributeSource();
+
+		//查找事务注解属性，如果为null,则不为事务
 		final TransactionAttribute txAttr = (tas != null ? tas.getTransactionAttribute(method, targetClass) : null);
 		final PlatformTransactionManager tm = determineTransactionManager(txAttr);
 		final String joinpointIdentification = methodIdentification(method, targetClass, txAttr);
@@ -371,14 +374,19 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 
 	/**
 	 * Determine the specific transaction manager to use for the given transaction.
+	 *
+	 * 确定事务属性
 	 */
 	@Nullable
 	protected PlatformTransactionManager determineTransactionManager(@Nullable TransactionAttribute txAttr) {
 		// Do not attempt to lookup tx manager if no tx attributes are set
+		//如果不存在，返回默认事务
 		if (txAttr == null || this.beanFactory == null) {
 			return getTransactionManager();
 		}
 
+
+		//匹配事务
 		String qualifier = txAttr.getQualifier();
 		if (StringUtils.hasText(qualifier)) {
 			return determineQualifiedTransactionManager(this.beanFactory, qualifier);
@@ -400,6 +408,7 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 		}
 	}
 
+	//根据qualifier，查找事务
 	private PlatformTransactionManager determineQualifiedTransactionManager(BeanFactory beanFactory, String qualifier) {
 		PlatformTransactionManager txManager = this.transactionManagerCache.get(qualifier);
 		if (txManager == null) {

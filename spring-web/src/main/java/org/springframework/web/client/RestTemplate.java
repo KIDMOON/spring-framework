@@ -80,6 +80,9 @@ import org.springframework.web.util.UriTemplateHandler;
  * @author Roy Clarkson
  * @author Juergen Hoeller
  * @since 3.0
+ *
+ * spring 网络请求
+ *
  * @see HttpMessageConverter
  * @see RequestCallback
  * @see ResponseExtractor
@@ -146,7 +149,6 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
 			this.messageConverters.add(new AtomFeedHttpMessageConverter());
 			this.messageConverters.add(new RssChannelHttpMessageConverter());
 		}
-
 		if (jackson2XmlPresent) {
 			this.messageConverters.add(new MappingJackson2XmlHttpMessageConverter());
 		}

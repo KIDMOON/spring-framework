@@ -27,9 +27,16 @@ import org.springframework.aop.Pointcut;
  * be overridden to customize ClassFilter behaviour as well.
  *
  * @author Rod Johnson
+ *
+ * 动态方法切入
+ *
  */
 public abstract class DynamicMethodMatcherPointcut extends DynamicMethodMatcher implements Pointcut {
 
+	/**
+	 * 默认true CLassFilter
+	 * @return
+	 */
 	@Override
 	public ClassFilter getClassFilter() {
 		return ClassFilter.TRUE;

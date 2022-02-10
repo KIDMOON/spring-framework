@@ -498,6 +498,9 @@ public class DispatcherServlet extends FrameworkServlet {
 		initMultipartResolver(context);
 		initLocaleResolver(context);
 		initThemeResolver(context);
+		/**
+		 * handlerMappings
+		 */
 		initHandlerMappings(context);
 		initHandlerAdapters(context);
 		initHandlerExceptionResolvers(context);
@@ -983,6 +986,7 @@ public class DispatcherServlet extends FrameworkServlet {
 					}
 				}
 
+				//拦截
 				if (!mappedHandler.applyPreHandle(processedRequest, response)) {
 					return;
 				}

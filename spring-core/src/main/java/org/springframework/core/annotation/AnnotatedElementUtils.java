@@ -604,6 +604,8 @@ public class AnnotatedElementUtils {
 	public static AnnotationAttributes findMergedAnnotationAttributes(AnnotatedElement element,
 			Class<? extends Annotation> annotationType, boolean classValuesAsString, boolean nestedAnnotationsAsMap) {
 
+
+
 		AnnotationAttributes attributes = searchWithFindSemantics(element, annotationType, null,
 				new MergedAnnotationAttributesProcessor(classValuesAsString, nestedAnnotationsAsMap));
 		AnnotationUtils.postProcessAnnotationAttributes(element, attributes, classValuesAsString, nestedAnnotationsAsMap);
@@ -1047,7 +1049,9 @@ public class AnnotatedElementUtils {
 					List<T> aggregatedResults = (processor.aggregates() ? new ArrayList<>() : null);
 
 					// Search in local annotations
+					//遍历注解
 					for (Annotation annotation : annotations) {
+
 						Class<? extends Annotation> currentAnnotationType = annotation.annotationType();
 						if (!AnnotationUtils.isInJavaLangAnnotationPackage(currentAnnotationType)) {
 							if (currentAnnotationType == annotationType ||

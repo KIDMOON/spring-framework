@@ -27,6 +27,14 @@ import org.springframework.util.Assert;
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 2.0
+<<<<<<< Updated upstream
+=======
+ *
+ *
+ * 懒单例方面实例工厂装饰类
+ * 主要isMaterialized  判断是否构建实例 instance   getAspectInstance
+ *
+>>>>>>> Stashed changes
  */
 @SuppressWarnings("serial")
 public class LazySingletonAspectInstanceFactoryDecorator implements MetadataAwareAspectInstanceFactory, Serializable {
@@ -47,6 +55,10 @@ public class LazySingletonAspectInstanceFactoryDecorator implements MetadataAwar
 	}
 
 
+	/**
+	 *
+	 * @return
+	 */
 	@Override
 	public Object getAspectInstance() {
 		Object aspectInstance = this.materialized;

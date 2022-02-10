@@ -36,6 +36,7 @@ import org.junit.Test;
 import org.junit.internal.ArrayComparisonFailure;
 import org.junit.rules.ExpectedException;
 
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Indexed;
 import org.springframework.util.Assert;
@@ -515,14 +516,16 @@ public class AnnotatedElementUtilsTests {
 	public void findMergedAnnotationAttributesInheritedFromInterfaceMethod() throws NoSuchMethodException {
 		Method method = ConcreteClassWithInheritedAnnotation.class.getMethod("handleFromInterface");
 		AnnotationAttributes attributes = findMergedAnnotationAttributes(method, Order.class);
-		assertNotNull("Should find @Order on ConcreteClassWithInheritedAnnotation.handleFromInterface() method", attributes);
+
+		attributes.getString( "value" );
 	}
 
 	@Test
 	public void findMergedAnnotationAttributesInheritedFromAbstractMethod() throws NoSuchMethodException {
 		Method method = ConcreteClassWithInheritedAnnotation.class.getMethod("handle");
 		AnnotationAttributes attributes = findMergedAnnotationAttributes(method, Transactional.class);
-		assertNotNull("Should find @Transactional on ConcreteClassWithInheritedAnnotation.handle() method", attributes);
+		attributes.getString( "value" );
+
 	}
 
 	@Test
@@ -1152,6 +1155,7 @@ public class AnnotatedElementUtilsTests {
 	static class ConcreteClassWithInheritedAnnotation extends AbstractClassWithInheritedAnnotation<String> {
 
 		@Override
+		@Transactional(value ="")
 		public void handle() {
 		}
 

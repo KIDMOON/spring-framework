@@ -17,12 +17,17 @@
 package org.springframework.context.annotation5;
 
 import example.scannable.FooDao;
+import example.scannable.FooServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Juergen Hoeller
  */
 @MyRepository
 public class OtherFooDao implements FooDao {
+
+	@Autowired
+	private FooServiceImpl fooServiceImpl;
 
 	@Override
 	public String findFoo(int id) {

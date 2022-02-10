@@ -46,6 +46,9 @@ import org.springframework.lang.Nullable;
  * @since 11.11.2003
  * @see Pointcut
  * @see ClassFilter
+ *
+ *
+ * MethodMatcher 匹配
  */
 public interface MethodMatcher {
 
@@ -71,6 +74,8 @@ public interface MethodMatcher {
 	 * @return whether or not a runtime match via the 3-arg
 	 * {@link #matches(java.lang.reflect.Method, Class, Object[])} method
 	 * is required if static matching passed
+	 *
+	 * 是否是运行
 	 */
 	boolean isRuntime();
 

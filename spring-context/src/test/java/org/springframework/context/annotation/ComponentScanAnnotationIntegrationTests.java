@@ -23,12 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.HashSet;
 
-import example.scannable.CustomComponent;
-import example.scannable.CustomStereotype;
-import example.scannable.DefaultNamedComponent;
-import example.scannable.FooService;
-import example.scannable.MessageBean;
-import example.scannable.ScopedProxyTestBean;
+import example.scannable.*;
 import example.scannable_implicitbasepackage.ComponentScanAnnotatedConfigWithImplicitBasePackage;
 import example.scannable_implicitbasepackage.ConfigurableComponent;
 import example.scannable_scoped.CustomScopeAnnotationBean;
@@ -81,8 +76,12 @@ public class ComponentScanAnnotationIntegrationTests {
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 		ctx.scan(example.scannable._package.class.getPackage().getName());
 		ctx.refresh();
-		assertThat("control scan for example.scannable package failed to register FooServiceImpl bean",
-				ctx.containsBean("fooServiceImpl"), is(true));
+
+		Kid kid= (Kid) ctx.getBean("kid");
+		kid.ss();
+
+		System.out.println(ctx.getBean("kid"));
+
 	}
 
 	@Test

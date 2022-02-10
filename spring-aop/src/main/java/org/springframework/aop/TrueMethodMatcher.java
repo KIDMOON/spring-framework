@@ -25,6 +25,7 @@ import org.springframework.lang.Nullable;
  * Canonical MethodMatcher instance that matches all methods.
  *
  * @author Rod Johnson
+ * ture方法匹配
  */
 @SuppressWarnings("serial")
 class TrueMethodMatcher implements MethodMatcher, Serializable {

@@ -37,6 +37,9 @@ package org.springframework.beans.factory;
  * implement {@link org.springframework.context.Lifecycle} instead which offers
  * a richer model for runtime management and allows for phased startup/shutdown.
  *
+ *
+ *  初始化后执行，   org.springframework.beans.factory.support.DefaultListableBeanFactory#preInstantiateSingletons()
+ *
  * @author Juergen Hoeller
  * @since 4.1
  * @see org.springframework.beans.factory.config.ConfigurableListableBeanFactory#preInstantiateSingletons()

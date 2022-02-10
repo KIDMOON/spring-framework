@@ -43,6 +43,8 @@ import org.springframework.lang.Nullable;
  * @since 1.2
  * @see #setUseDynamicLogger
  * @see #invokeUnderTrace(org.aopalliance.intercept.MethodInvocation, org.apache.commons.logging.Log)
+ *
+ * 抽象方法跟踪拦截器
  */
 @SuppressWarnings("serial")
 public abstract class AbstractTraceInterceptor implements MethodInterceptor, Serializable {

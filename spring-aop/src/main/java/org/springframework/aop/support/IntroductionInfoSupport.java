@@ -39,6 +39,8 @@ import org.springframework.util.ClassUtils;
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
+ *
+ * 接口简介
  */
 @SuppressWarnings("serial")
 public class IntroductionInfoSupport implements IntroductionInfo, Serializable {

@@ -35,6 +35,9 @@ import org.springframework.lang.Nullable;
  * @since 2.0
  * @see AspectMetadata
  * @see org.aspectj.lang.reflect.AjTypeSystem
+ *
+ *
+ * 工厂类接口
  */
 public interface AspectJAdvisorFactory {
 
@@ -48,6 +51,8 @@ public interface AspectJAdvisorFactory {
 	 * Use the {@link #validate} method to handle these cases if necessary.
 	 * @param clazz the supposed annotation-style AspectJ class
 	 * @return whether or not this class is recognized by AspectJ as an aspect class
+	 *
+	 * 是否是Aspect
 	 */
 	boolean isAspect(Class<?> clazz);
 
@@ -58,6 +63,8 @@ public interface AspectJAdvisorFactory {
 	 * (which can never be legal)
 	 * @throws NotAnAtAspectException if the class is not an aspect at all
 	 * (which may or may not be legal, depending on the context)
+	 *
+	 *  验证接口
 	 */
 	void validate(Class<?> aspectClass) throws AopConfigException;
 
@@ -67,6 +74,9 @@ public interface AspectJAdvisorFactory {
 	 * @param aspectInstanceFactory the aspect instance factory
 	 * (not the aspect instance itself in order to avoid eager instantiation)
 	 * @return a list of advisors for this class
+	 *
+	 * 构建 Advisor
+	 *
 	 */
 	List<Advisor> getAdvisors(MetadataAwareAspectInstanceFactory aspectInstanceFactory);
 

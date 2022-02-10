@@ -54,6 +54,10 @@ import org.springframework.lang.Nullable;
  * @author Adrian Colyer
  * @author Juergen Hoeller
  * @since 2.0
+ *
+ *
+ * 工厂类
+ *
  */
 public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFactory {
 
@@ -74,6 +78,9 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 	 * if it has the @Aspect annotation, and was not compiled by ajc. The reason for this latter test
 	 * is that aspects written in the code-style (AspectJ language) also have the annotation present
 	 * when compiled by ajc with the -1.5 flag, yet they cannot be consumed by Spring AOP.
+	 *
+	 *
+	 *
 	 */
 	@Override
 	public boolean isAspect(Class<?> clazz) {
@@ -126,6 +133,9 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 	/**
 	 * Find and return the first AspectJ annotation on the given method
 	 * (there <i>should</i> only be one anyway...).
+	 *
+	 *
+	 * 返回AspectJAnnotation ，根据ASPECTJ_ANNOTATION_CLASSES 顺序
 	 */
 	@SuppressWarnings("unchecked")
 	@Nullable
@@ -180,12 +190,16 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 			annotationTypeMap.put(AfterThrowing.class, AspectJAnnotationType.AtAfterThrowing);
 		}
 
+		//注解类型
 		private final A annotation;
 
+		//枚举类 AtPointcut, AtAround, AtBefore, AtAfter, AtAfterReturning, AtAfterThrowing
 		private final AspectJAnnotationType annotationType;
 
+		//表达式
 		private final String pointcutExpression;
 
+		//注解中的argNames参数
 		private final String argumentNames;
 
 		public AspectJAnnotation(A annotation) {
@@ -248,8 +262,14 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 	/**
 	 * ParameterNameDiscoverer implementation that analyzes the arg names
 	 * specified at the AspectJ annotation level.
+	 *
+	 * AspectJAnnotation 实现的 方法名参数 + 构造函数参数
+	 *
+	 * （其实是取自 ASPECTJ_ANNOTATION_CLASSES 注解中的）argName字段
+	 *
 	 */
 	private static class AspectJAnnotationParameterNameDiscoverer implements ParameterNameDiscoverer {
+
 
 		@Override
 		@Nullable

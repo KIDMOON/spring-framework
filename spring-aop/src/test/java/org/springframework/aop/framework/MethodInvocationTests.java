@@ -44,6 +44,9 @@ public class MethodInvocationTests {
 		is.add(new MethodInterceptor() {
 			@Override
 			public Object invoke(MethodInvocation invocation) throws Throwable {
+
+			    Object o=invocation.getThis();
+			    invocation.proceed();
 				return returnValue;
 			}
 		});

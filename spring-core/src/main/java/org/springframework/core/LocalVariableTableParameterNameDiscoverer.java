@@ -113,6 +113,8 @@ public class LocalVariableTableParameterNameDiscoverer implements ParameterNameD
 		try {
 			ClassReader classReader = new ClassReader(is);
 			Map<Member, String[]> map = new ConcurrentHashMap<>(32);
+
+			//实现 将方法和参数 放入 map
 			classReader.accept(new ParameterNameDiscoveringVisitor(clazz, map), 0);
 			return map;
 		}

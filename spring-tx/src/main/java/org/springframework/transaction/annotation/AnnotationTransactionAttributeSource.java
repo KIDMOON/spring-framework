@@ -51,6 +51,9 @@ import org.springframework.util.ClassUtils;
  * @see Ejb3TransactionAnnotationParser
  * @see org.springframework.transaction.interceptor.TransactionInterceptor#setTransactionAttributeSource
  * @see org.springframework.transaction.interceptor.TransactionProxyFactoryBean#setTransactionAttributeSource
+ *
+ *
+ * 注解事务属性源
  */
 @SuppressWarnings("serial")
 public class AnnotationTransactionAttributeSource extends AbstractFallbackTransactionAttributeSource
@@ -133,12 +136,16 @@ public class AnnotationTransactionAttributeSource extends AbstractFallbackTransa
 	}
 
 
+
+	//类转换属性 TransactionAttribute  一般会是spring的事务
+	//根据 事务注解才判断
 	@Override
 	@Nullable
 	protected TransactionAttribute findTransactionAttribute(Class<?> clazz) {
 		return determineTransactionAttribute(clazz);
 	}
 
+	//方法转换注解属性
 	@Override
 	@Nullable
 	protected TransactionAttribute findTransactionAttribute(Method method) {
@@ -154,6 +161,8 @@ public class AnnotationTransactionAttributeSource extends AbstractFallbackTransa
 	 * <p>Can be overridden to support custom annotations that carry transaction metadata.
 	 * @param element the annotated method or class
 	 * @return the configured transaction attribute, or {@code null} if none was found
+	 *
+	 * 转换
 	 */
 	@Nullable
 	protected TransactionAttribute determineTransactionAttribute(AnnotatedElement element) {
@@ -168,6 +177,7 @@ public class AnnotationTransactionAttributeSource extends AbstractFallbackTransa
 
 	/**
 	 * By default, only public methods can be made transactional.
+	 * 是否值允许公共方法
 	 */
 	@Override
 	protected boolean allowPublicMethodsOnly() {
